@@ -4,7 +4,7 @@ import CloseButton from '@material-ui/icons/CloseOutlined';
 import { useStylesSignIn } from '../../pages/SignIn';
 
 interface ModalBlockProps {
-    title: string;
+    title?: string;
     children: React.ReactNode;
     classes?: ReturnType<typeof useStylesSignIn>;
     visible: boolean;

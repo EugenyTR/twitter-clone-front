@@ -5,7 +5,7 @@ import CommentIcon from '@material-ui/icons/ChatBubbleOutline';
 import RepeatIcon from '@material-ui/icons/Repeat';
 import FavoriteIcon from '@material-ui/icons/FavoriteBorder';
 import ShareIcon from '@material-ui/icons/Share';
-import { useHomeStyles } from '../../pages/Home';
+import { useHomeStyles } from '../../pages/Home/theme';
 import { Avatar, Grid, IconButton, Paper, Typography } from '@material-ui/core';
 
 interface TweetProps {

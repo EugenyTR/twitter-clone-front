@@ -9,8 +9,10 @@ import {
 
 import SearchIcon from '@material-ui/icons/Search';
 import PersonAddIcon from '@material-ui/icons/PersonAddOutlined';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 import { Tweet } from '../../components/Tweet';
+import { Tags } from '../../components/Tags';
 import { SideMenu } from '../../components/SideMenu';
 
 import List from "@material-ui/core/List/List";
@@ -23,9 +25,21 @@ import Button from "@material-ui/core/Button/Button";
 import {AddTweetForm} from "../../components/AddTweetForm";
 import {useHomeStyles} from "./theme";
 import {SearchTextField} from "../../components/SearchTextField";
+import {useDispatch, useSelector} from "react-redux";
+import {fetchTweets} from "../../store/ducks/tweets/actionCreators";
+import {selectIsTweetsLoading, selectTweetsItems} from "../../store/ducks/tweets/selectors";
+import {fetchTags} from "../../store/ducks/tags/actionCreators";
 
 export const Home = (): React.ReactElement => {
     const classes = useHomeStyles();
+    const dispatch = useDispatch();
+    const tweets = useSelector(selectTweetsItems);
+    const isLoading = useSelector(selectIsTweetsLoading);
+
+    React.useEffect(() => {
+        dispatch(fetchTweets());
+        dispatch(fetchTags());
+    }, [dispatch]);
 
     return (
             <Container className={classes.wrapper} maxWidth="lg">
@@ -42,20 +56,13 @@ export const Home = (): React.ReactElement => {
                                 <AddTweetForm classes={classes} />
                                 <div className={classes.addFormBottomLine} />
                             </Paper>
-                            {
-                                [...new Array(20).fill(<Tweet 
-                                    text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
-                                    Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
-                                    Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. 
-                                    Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-                                    classes={classes}
-                                    user={{
-                                        fullname: 'Eugeny Trigubovich',
-                                        username: 'EugenyTrigubovich',
-                                        avatarUrl: 'https://sun4-16.userapi.com/s/v1/if1/fWArWawVu8ejYWQYpFmuHH5xqzUXc4peMONywDwJQAY1dAVKDSb7_b6Rk_RcZG09uO_wmg.jpg?size=200x0&quality=96&crop=75,0,561,561&ava=1'
-                                    }}
-                                />)]
-                            }
+                                {isLoading ? (
+                                    <div className={classes.tweetsCentered}><CircularProgress /></div>
+                                    ) : (
+                                        tweets.map((tweet) => (
+                                            <Tweet key={tweet._id} text={tweet.text} classes={classes} user={tweet.user} />
+                                        ))
+                                )}
                         </Paper>
                     </Grid>
                     <Grid item sm={3} xs={3}>
@@ -72,46 +79,7 @@ export const Home = (): React.ReactElement => {
                                 }}
                                 fullWidth
                             />
-                            <Paper className={classes.rightSideBlock}>
-                                <Paper className={classes.rightSideBlockHeader} variant='outlined'>
-                                    <b>актуальные темы</b>
-                                </Paper>
-                                <List>
-                                    <ListItem className={classes.rightSideBlockItem}>
-                                        <ListItemText
-                                            primary='Новосибирск'
-                                            secondary={
-                                                <Typography component='span' variant='body2'>
-                                                    Твиттов: 6 666
-                                                </Typography>
-                                            }
-                                        />
-                                    </ListItem>
-                                    <Divider component='li' />
-                                    <ListItem className={classes.rightSideBlockItem}>
-                                        <ListItemText
-                                            primary='#весна'
-                                            secondary={
-                                                <Typography component='span' variant='body2'>
-                                                    Твитов: 2 000 000
-                                                </Typography>
-                                            }
-                                        />
-                                    </ListItem>
-                                    <Divider component='li' />
-                                    <ListItem className={classes.rightSideBlockItem}>
-                                        <ListItemText
-                                            primary='#ГорныйАлтай'
-                                            secondary={
-                                                <Typography component='span' variant='body2'>
-                                                    Твитов: 2 000 000 000
-                                                </Typography>
-                                            }
-                                        />
-                                    </ListItem>
-                                    <Divider component='li' />
-                                </List>
-                            </Paper>
+                            <Tags classes={classes} />
                             <Paper className={classes.rightSideBlock}>
                                 <Paper className={classes.rightSideBlockHeader} variant='outlined'>
                                     <b>Кого читать</b>

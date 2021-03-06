@@ -146,6 +146,10 @@ export const useHomeStyles = makeStyles((theme: Theme) => ({
         '& hover': {
             backgroundColor: '#edf4f6',
         },
+        '& a': {
+           color: 'inherit',
+           textDecoration: 'none',
+        },
     },
     addForm: {
         padding: 20,
@@ -187,5 +191,9 @@ export const useHomeStyles = makeStyles((theme: Theme) => ({
     addFormBottomRight: {
         display: 'flex',
         alignItems: 'center',
+    },
+    tweetsCentered: {
+        marginTop: 50,
+        textAlign: 'center',
     },
 }));

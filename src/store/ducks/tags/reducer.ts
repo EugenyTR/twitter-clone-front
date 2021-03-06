@@ -1,29 +1,29 @@
 import produce, {Draft} from 'immer';
-import {LoadingState, TweetsState} from "./contracts/state";
-import {TweetsAction, TweetsActionsType} from "./actionCreators";
+import {LoadingState, TagsState} from "./contracts/state";
+import {TagsAction, TagsActionsType} from "./actionCreators";
 
-const initialTweetsState: TweetsState = {
+const initialTagsState: TagsState = {
     items: [],
     loadingState: LoadingState.NEVER,
 };
 
-export const tweetsReducer = produce((draft: Draft<TweetsState>, action: TweetsAction) => {
+export const tagsReducer = produce((draft: Draft<TagsState>, action: TagsAction) => {
     switch (action.type) {
-        case TweetsActionsType.SET_TWEETS:
+        case TagsActionsType.SET_TAGS:
             draft.items = action.payload;
             draft.loadingState = LoadingState.LOADED;
             break;
 
-        case TweetsActionsType.FETCH_TWEETS:
+        case TagsActionsType.FETCH_TAGS:
             draft.items = [];
             draft.loadingState = LoadingState.LOADING;
             break;
 
-        case TweetsActionsType.SET_LOADING_STATE:
+        case TagsActionsType.SET_LOADING_STATE:
             draft.loadingState = action.payload;
             break;
 
         default:
             break;
     }
-}, initialTweetsState);
+}, initialTagsState);

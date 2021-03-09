@@ -7,8 +7,10 @@ import FavoriteIcon from '@material-ui/icons/FavoriteBorder';
 import ShareIcon from '@material-ui/icons/Share';
 import { useHomeStyles } from '../../pages/Home/theme';
 import { Avatar, Grid, IconButton, Paper, Typography } from '@material-ui/core';
+import {Link} from "react-router-dom";
 
 interface TweetProps {
+    _id: string;
     text: string;
     classes: ReturnType<typeof useHomeStyles>;
     user: {
@@ -19,20 +21,21 @@ interface TweetProps {
 
 }
 
-export const Tweet: React.FC<TweetProps> = ({ classes, text, user }: TweetProps): React.ReactElement => {
+export const Tweet: React.FC<TweetProps> = ({ _id, classes, text, user }: TweetProps): React.ReactElement => {
     return (
-        <Paper className={classNames(classes.tweet, classes.tweetsHeader)} variant="outlined">
-            <Grid container spacing={3}>
-                <Grid item xs={1}>
-                    <Avatar className={classes.tweetAvatar} alt={`Аватрка пользователя ${user.fullname}`} src={user.avatarUrl} />
-                </Grid>
-                <Grid item xs={11}>
-                    <Typography>
-                        <b>{user.fullname}</b>&nbsp;
-                        <span className={classes.tweetsUserColor}>@{user.username}</span>&nbsp;
-                        <span>.</span>&nbsp;
-                        <span className={classes.tweetsUserColor}>1 ч</span>
-                    </Typography>
+        <Link to={`/home/tweet/${_id}`} className={classes.tweetLinkWrapper}>
+            <Paper className={classNames(classes.tweet, classes.tweetsHeader)} variant="outlined">
+                <Grid container spacing={3}>
+                    <Grid item xs={1}>
+                        <Avatar className={classes.tweetAvatar} alt={`Аватрка пользователя ${user.fullname}`} src={user.avatarUrl} />
+                    </Grid>
+                    <Grid item xs={11}>
+                        <Typography>
+                            <b>{user.fullname}</b>&nbsp;
+                            <span className={classes.tweetsUserColor}>@{user.username}</span>&nbsp;
+                            <span>.</span>&nbsp;
+                            <span className={classes.tweetsUserColor}>1 ч</span>
+                        </Typography>
                         <Typography variant="body1" gutterBottom>
                             {text}
                         </Typography>
@@ -59,8 +62,9 @@ export const Tweet: React.FC<TweetProps> = ({ classes, text, user }: TweetProps)
                                 </IconButton>
                             </div>
                         </div>
+                    </Grid>
                 </Grid>
-            </Grid>
-        </Paper>
+            </Paper>
+        </Link>
     );
 }

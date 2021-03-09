@@ -15,6 +15,7 @@ import CreateIcon from '@material-ui/icons/Create';
 import Hidden from "@material-ui/core/Hidden";
 import {ModalBlock} from "../ModalBlock";
 import {AddTweetForm} from "../AddTweetForm";
+import {Link} from "react-router-dom";
 
 
 interface SideMenuProps {
@@ -35,9 +36,11 @@ export const SideMenu: React.FC<SideMenuProps> = ({ classes }: SideMenuProps): R
     return (
         <ul className={classes.sideMenuList}>
            <li className={classes.sideMenuListItem}>
-             <IconButton className={classes.logoIconWrapper} aria-label="" color="primary">
-                <TwitterIcon className={classes.logo} />
-             </IconButton>
+               <Link to="/home">
+                   <IconButton className={classes.logoIconWrapper} aria-label="" color="primary">
+                       <TwitterIcon className={classes.logo} />
+                   </IconButton>
+               </Link>
             </li>
             <li className={classes.sideMenuListItem}>
               <div>

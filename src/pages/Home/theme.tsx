@@ -73,6 +73,8 @@ export const useHomeStyles = makeStyles((theme: Theme) => ({
         }
     },
     tweetsHeaderSticky: {
+        display: 'flex',
+        alignItems: 'center',
         position: 'sticky',
         top: 0,
         backgroundColor: '#fff',
@@ -105,7 +107,7 @@ export const useHomeStyles = makeStyles((theme: Theme) => ({
         display: 'flex',
         position: 'relative',
         left: 0,
-        justifyContent: 'left',
+        justifyContent: 'space-between',
         width: 450,
     },
     rightSide: {
@@ -166,6 +168,8 @@ export const useHomeStyles = makeStyles((theme: Theme) => ({
     addFormBottomActions: {
         marginTop: 10,
         paddingLeft: 40,
+        display: 'flex',
+        justifyContent: 'left',
     },
     addFormTextarea: {
         width: '100%',
@@ -195,5 +199,9 @@ export const useHomeStyles = makeStyles((theme: Theme) => ({
     tweetsCentered: {
         marginTop: 50,
         textAlign: 'center',
+    },
+    tweetLinkWrapper: {
+        color: 'inherit',
+        textDecoration: 'none',
     },
 }));

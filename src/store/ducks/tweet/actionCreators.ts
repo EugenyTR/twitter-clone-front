@@ -1,5 +1,4 @@
 import {LoadingState, TweetState} from "./contracts/state";
-import {Tweet} from "../tweets/contracts/state";
 import {
     FetchTweetDataActionInterface,
     SetTweetDataActionInterface,
